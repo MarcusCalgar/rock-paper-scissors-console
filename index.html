@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //5 round game
+// Initialization
+        let playerScore = 0;
+        let computerScore = 0;
+                    function game(){
+                        const playerSelection = prompt('What do you choose? Rock, paper, or scissors?');               
+                        function computerPlay(){
+                                    let computerSelection = Math.random();
+                                    if (computerSelection >= 0.667){
+                                        computerSelection = "Rock";
+                                    } else if (computerSelection >= 0.334){
+                                        computerSelection = "Paper";
+                                    } else {
+                                        computerSelection = "Scissors";
+                                    }
+                                    return computerSelection;
+                                }
+                        const computerSelection = computerPlay();
+                //Play a round
+                        function playRound(playerSelection, computerSelection){
+
+                            //Transforming the user input to be useful regardless of format
+
+                            let select = playerSelection.toLowerCase()
+                            let selected = select.replace(select.charAt(0), select.charAt(0).toUpperCase());
+                            
+                            // Evaluation
+
+                            if (selected === computerSelection){
+                                return 'It\'s a tie! Try again.';               
+                            } else if (selected === 'Rock' && computerSelection === 'Paper'){
+                                return 'Paper beats rock. You lose.';
+                            } else if (selected === 'Rock' && computerSelection === 'Scissors'){
+                                return 'Rock beats scissors. You win!';
+                            } else if (selected === 'Paper' && computerSelection === 'Rock'){
+                                return 'Paper beats rock. You win!';
+                            } else if (selected === 'Paper' && computerSelection === 'Scissors'){
+                                return 'Scissors beats paper. You lose.';
+                            } else if (selected === 'Scissors' && computerSelection === 'Rock'){
+                                return 'Rock beats scissors. You lose.';
+                            } else if (selected === 'Scissors' && computerSelection === 'Paper'){
+                                return 'Scissors beats paper. You win!';
+                            } else {
+                                console.log ('Whooops! Something went wrong. Make sure you enter either rock, paper, or scissors!')
+                            }
+                        } 
+                //Playing a round and returning the result
+                        let result = playRound(playerSelection, computerSelection);
+                        console.log(result);
+                //Declaring the score showing function         
+                        let showScore = () => {
+                        console.log('Your score: ' + playerScore);
+                        console.log('Computer score: ' + computerScore);
+                        }               
+                //Evaluate the result of the round.
+                        if (result === 'Paper beats rock. You lose.' || result === 'Rock beats scissors. You lose.' || result === 'Scissors beats paper. You lose.'){
+                            computerScore++;
+                            showScore();
+                        } else if (result === 'Paper beats rock. You win!' || result === 'Rock beats scissors. You win!' || result === 'Scissors beats paper. You win!'){
+                            playerScore++;
+                            showScore();
+                        } else if (result === 'It\'s a tie! Try again.'){
+                            showScore();
+                        }        
+                }
+        //The 5 round game
+            for (let numberOfRounds = 1; numberOfRounds <= 5; numberOfRounds++){                
+                game();
+                if (numberOfRounds === 5){
+                    break;
+                }
+            }
+        //Showing the final score after 5 rounds
+            if (playerScore > computerScore){
+                console.log("Congratulations! You have won!")
+            } else if (playerScore < computerScore){
+                console.log("You have lost. Better luck next time!")
+            } else {
+                console.log("It looks like a draw! Care for another round?")
+            }
+     
+    </script>
+</body>
+</html>
